@@ -1,0 +1,64 @@
+# get all students
+GET localhost:3000/api/v1/students
+Accept: application/json
+
+###
+
+# get student by id
+GET localhost:3000/api/v1/students/636a0acd8b8717f00972776d
+Accept: application/json
+
+###
+
+# post new student
+POST localhost:3000/api/v1/students
+content-type: application/json
+
+{
+  "student": "George Clooney",
+  "birthday": "1966-06-25",
+  "mobil": 123458547,
+  "address": {
+    "street": "Hollywood Boulevard 15",
+    "city": "Los Angeles",
+    "zipCode": "698741"
+  },
+  "subjects": [
+    {
+      "subject": "acting",
+      "startDate": "1995-09-01",
+      "endDate": "1995-06-30"
+    },
+    {
+      "subject": "linguistic",
+      "startDate": "1995-09-01",
+      "endDate": "1997-06-22"
+    }
+  ]
+}
+
+###
+
+# patch student
+PATCH localhost:3000/api/v1/students/636a0acd8b8717f00972776d
+Content-type: application/json
+
+{
+  "address.street": "Lyngby Hovedgade 25A"
+}
+
+###
+
+# delete student
+DELETE localhost:3000/api/v1/students/636a0acd8b8717f00972776d
+
+###
+
+### Failed test: check response status is 200
+GET localhost:3000/api/v1/students
+
+> {%
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is 200");
+});
+%}

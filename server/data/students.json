@@ -1,0 +1,90 @@
+[
+  {
+    "student": "Steve Taylor",
+    "birthday": "1985-05-06",
+    "mobil": 123456,
+    "address": {
+      "street": "Kongevejen 6",
+      "city": "Copenhagen",
+      "zipCode": "1166"
+    },
+    "subjects": [
+      {
+        "subject": "math",
+        "startDate": "2022-09-01",
+        "endDate": "2023-06-30"
+      },
+      {
+        "subject": "chemistry",
+        "startDate": "2022-09-01",
+        "endDate": "2023-06-22"
+      }
+    ]
+  },
+  {
+    "student": "Bill Clinton",
+    "birthday": "1977-06-10",
+    "mobil": 1234567,
+    "address": {
+      "street": "Hammershus 25b",
+      "city": "Rønne",
+      "zipCode": "5555"
+    },
+    "subjects": [
+      {
+        "subject": "math",
+        "startDate": "2022-09-01",
+        "endDate": "2023-06-30"
+      },
+      {
+        "subject": "computer-science",
+        "startDate": "2022-09-01",
+        "endDate": "2023-06-22"
+      }
+    ]
+  },
+  {
+    "student": "Michelle Pfeiffer",
+    "birthday": "1977-12-06",
+    "mobil": 1234568,
+    "address": {
+      "street": "Strøget 85c",
+      "city": "Copenhagen",
+      "zipCode": "2200"
+    },
+    "subjects": [
+      {
+        "subject": "danish",
+        "startDate": "2021-09-01",
+        "endDate": "2022-06-30"
+      },
+      {
+        "subject": "english",
+        "startDate": "2019-09-01",
+        "endDate": "2020-06-22"
+      }
+    ]
+  },
+  {
+    "student": "Margrethe Thatcher",
+    "birthday": "1945-01-16",
+    "mobil": 1234569,
+    "address": {
+      "street": "Queens-road 85",
+      "city": "Birmingham",
+      "zipCode": "5555"
+    },
+    "subjects": [
+      {
+        "subject": "politics",
+        "startDate": "1945-09-01",
+        "endDate": "1947-06-30"
+      },
+      {
+        "subject": "german",
+        "startDate": "1977-09-01",
+        "endDate": "1978-06-22"
+      }
+    ]
+  }
+]
