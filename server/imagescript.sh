@@ -1,18 +1,21 @@
 #! /bin/bash
 
-read -p "Tag-Name (version).. " tag
+read -p "Did you change the connection url in config.env and server.js file ? (yes/no)" answer
 
-echo "Tag-Name: " $tag
+if [[ "$answer" = "y" || "$answer" = "yes" ]]; then
+  read -p "Tag-Name (version).. " tag
 
-docker build -t jsonserver:$tag .
+  echo "Tag-Name: " $tag
 
-docker login
+  docker build -t jsonserver:$tag .
 
-# tag the image
-docker tag jsonserver:$tag tyskerdocker/jsonserver:$tag
+  docker login
 
-# push the image to docker hub
-docker push tyskerdocker/jsonserver:$tag
+  # tag the image
+  docker tag jsonserver:$tag tyskerdocker/jsonserver:$tag
 
-
-
+  # push the image to docker hub
+  docker push tyskerdocker/jsonserver:$tag
+else
+  exit
+fi
