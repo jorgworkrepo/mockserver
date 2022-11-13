@@ -8,10 +8,13 @@ const {
     deleteStudent,
     getAllStudents,
     getStudent,
-    updateTeacher
+    updateTeacher,
+    getStudentStats
 } = studentController;
 
 router.route('/').get(getAllStudents).post(createStudent);
+
+router.route('/students-stats').get(getStudentStats);
 
 router.route('/:id').get(getStudent).patch(updateTeacher).delete(deleteStudent);
 
