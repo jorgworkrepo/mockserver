@@ -3,6 +3,11 @@ GET localhost:3000/api/v1/students
 Accept: application/json
 
 ###
+# get student matched with subject
+GET localhost:3000/api/v1/students/students-stats?subject=math
+Accept: application/json
+
+###
 
 # get student by id
 GET localhost:3000/api/v1/students/636a0acd8b8717f00972776d

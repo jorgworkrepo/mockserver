@@ -1,5 +1,6 @@
 const Student = require('../models/studentModel');
 const APIFeatures = require("../utils/apiFeatures");
+const {query} = require("express");
 
 exports.getAllStudents = async (req, res) => {
     try {
@@ -96,16 +97,46 @@ exports.deleteStudent = async (req, res) => {
 };
 
 exports.getStudentStats = async (req, res) => {
-
     try {
-        const stats = await Student.aggregate([
-            {
-                $match: {}
-            }
-        ])
+
+        const subject = req.query.subject;
+
+        const stats = await Student.aggregate(
+            [
+                {
+                    $unwind: "$subjects"
+                },
+                {
+                    $match:
+                        {
+                            "subjects.subject": {$eq: subject}
+                        }
+                },
+                {
+                    $group: {
+                        _id: subject,
+                        numOfSubject: { $sum: 1 },
+                        students: { $push: '$student'}
+                    }
+                },
+                {
+                    $addFields: { subject: '$_id'}
+                },
+                {
+                    $project: { _id: 0}
+                }
+            ])
+
+        // const limitFields = [];
+        //
+        // for (const stat of stats) {
+        //     limitFields.push({student: stat.student, city: stat.address.city, subject: stat.subjects.subject})
+        // }
+
         res.status(200).json({
             status: 'succes',
-            data: stats,
+            data: stats
+            // data: {result: limitFields.length, data: limitFields}
         });
     } catch (err) {
         res.status(400).json({
@@ -115,7 +146,6 @@ exports.getStudentStats = async (req, res) => {
     }
 
 }
-
 
 
 

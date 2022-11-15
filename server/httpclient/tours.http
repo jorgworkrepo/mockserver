@@ -4,6 +4,11 @@ Accept: application/json
 
 ###
 
+GET localhost:3000/api/v1/tours/tour-stats
+Accept: application/json
+
+###
+
 GET localhost:3000/api/v1/tours/top-5-cheap
 Accept: application/json
 

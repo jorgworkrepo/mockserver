@@ -9,7 +9,7 @@ const {
     getAllStudents,
     getStudent,
     updateTeacher,
-    getStudentStats
+    getStudentStats,
 } = studentController;
 
 router.route('/').get(getAllStudents).post(createStudent);

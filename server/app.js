@@ -8,9 +8,10 @@ const userRouter = require('./routes/userRoutes');
 
 const app = express();
 
+
 // 1) Middleware
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+  app.use(morgan('dev')); //https://expressjs.com/en/resources/middleware/morgan.html
 }
 
 app.use(express.json()); // For getting the request body
