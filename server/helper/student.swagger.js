@@ -1,24 +1,4 @@
-const studentObj = {
-    "student": {
-        "address": {
-            "street": "9204 Chetwyn",
-            "city": "Medford",
-            "zipCode": "TW85 3KK"
-        },
-        "name": "Garret Irizarry",
-        "birthday": "1995-11-14T00:00:00.000Z",
-        "email": "nicholasgarris21@gmail.com",
-        "mobil": 872365,
-        "gender": "male"
-    },
-    "education": {
-        "name": "webdesign",
-        "startDate": "2021-08-01T00:00:00.000Z",
-        "endDate": "2023-07-01T00:00:00.000Z"
-    },
-    "studentAge": 27,
-    "id": "6383267efefdb17380fe195b"
-}
+const {code200, code404, code500, code201, code400} = require("./statusCode.swagger");
 
 const studentSchema = {
     type: "object",
@@ -101,24 +81,14 @@ const studentSchema = {
     },
 }
 
-
 const listOfStudents = {
     tags: ["student"],
     summary: "A list of all students from db",
     operationId: "listOfStudents",
     responses: {
-        200: {
-            description: "OK",
-            content: {
-                "application/json": {
-                    schema: {
-                        type: "array",
-                        example: [studentObj]
-
-                    }
-                }
-            }
-        }
+        200: code200,
+        404: code404,
+        500: code500
     }
 }
 
@@ -127,8 +97,10 @@ const createStudent = {
     summary: "Create a new student",
     operationId: "addStudent",
     responses: {
-        201: {description: "student created"},
-        400: {description: 'invalid input, object invalid'},
+        201: code201,
+        400: code400,
+        404: code404,
+        500: code500
     },
     requestBody: {
         content: {

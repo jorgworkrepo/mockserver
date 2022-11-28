@@ -18,6 +18,7 @@ mongoose.connect(DB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
+  console.log(`Running in ${process.env.NODE_ENV.toUpperCase()} mode.`)
   console.log('DB connection successful!');
 });
 

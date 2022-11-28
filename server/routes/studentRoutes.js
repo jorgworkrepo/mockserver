@@ -12,23 +12,8 @@ const {
     getStudentStats,
 } = studentController;
 
-/**
- * @swagger
- * components:
- *  schemas:
- * Student:
- *  type: object
- *  required:
- *  - title
- *
- *
- */
 router.route('/').get(getAllStudents);
 
-/**
- *
- *
- */
 router.route('/').post(createStudent);
 
 router.route('/students-stats/:year').get(getStudentStats);

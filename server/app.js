@@ -7,7 +7,7 @@ const studentRouter = require('./routes/studentRoutes');
 
 
 const swaggerUi = require('swagger-ui-express')
-const swaggerJsDoc = require('./helper/swaggerSetup');
+const swaggerJsDoc = require('./helper/setup.swagger');
 
 const app = express();
 
