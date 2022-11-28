@@ -1,7 +1,6 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const Tour = require('../models/tourModel');
 const Student = require('../models/studentModel');
 
 dotenv.config({ path: `${__dirname}/../config.env` });
@@ -21,9 +20,6 @@ mongoose.connect(DB, {
 // Read json file
 console.log(__dirname)
 
-const tours = JSON.parse(
-    fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
-
 const students = JSON.parse(
   fs.readFileSync(`${__dirname}/students.json`, 'utf-8'),
 );
@@ -32,7 +28,6 @@ const students = JSON.parse(
 
 const importData = async () => {
   try {
-    await Tour.create(tours);
     await Student.create(students);
     console.log('Data successfully loaded!');
   } catch (err) {
@@ -44,7 +39,6 @@ const importData = async () => {
 // Delete all from collection
 const deleteData = async () => {
   try {
-    await Tour.deleteMany();
     await Student.deleteMany();
     console.log('Data successfully deleted!');
   } catch (err) {
