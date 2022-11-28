@@ -8,14 +8,31 @@ const {
     deleteStudent,
     getAllStudents,
     getStudent,
-    updateTeacher,
+    updateStudent,
     getStudentStats,
 } = studentController;
 
-router.route('/').get(getAllStudents).post(createStudent);
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ * Student:
+ *  type: object
+ *  required:
+ *  - title
+ *
+ *
+ */
+router.route('/').get(getAllStudents);
 
-router.route('/students-stats').get(getStudentStats);
+/**
+ *
+ *
+ */
+router.route('/').post(createStudent);
 
-router.route('/:id').get(getStudent).patch(updateTeacher).delete(deleteStudent);
+router.route('/students-stats/:year').get(getStudentStats);
+
+router.route('/:id').get(getStudent).patch(updateStudent).delete(deleteStudent);
 
 module.exports = router;

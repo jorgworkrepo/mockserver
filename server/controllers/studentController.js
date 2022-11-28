@@ -1,151 +1,142 @@
 const Student = require('../models/studentModel');
 const APIFeatures = require("../utils/apiFeatures");
-const {query} = require("express");
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
-exports.getAllStudents = async (req, res) => {
-    try {
+exports.getAllStudents = catchAsync(async (req, res, next) => {
 
-        // Build query
-        const features = new APIFeatures(Student.find(), req.query)
-            .filter()
-            .sort()
-            .limitFields()
-            .paginate();
+    const features = new APIFeatures(Student.find(), req.query)
+        .filter()
+        .sort()
+        .limitFields()
+        .paginate();
 
-        const students = await features.query;
+    const students = await features.query;
 
-        // Send response
-        res.status(200).json({
-            status: 'success',
-            results: students.length,
-            data: {
-                students: students,
-            },
-        });
-    } catch (err) {
-        res.status(404).json({
-            status: 'fail',
-            message: err.message,
-        });
-    }
-};
+    res.status(200).json({
+        status: 'success',
+        results: students.length,
+        data: {
+            students: students,
+        },
+    });
+});
 
-exports.getStudent = async (req, res) => {
-    try {
-        const student = await Student.findById(req.params.id);
+exports.getStudent = catchAsync(async (req, res, next) => {
+    const student = await Student.findById(req.params.id);
 
-        res.status(200).json({
-            status: 'success',
-            data: {student},
-        });
-    } catch (err) {
-        res.status(400).json({
-            status: 'fail',
-            message: err.message,
-        });
-    }
-};
+    res.status(200).json({
+        status: 'success',
+        data: {student},
+    });
+});
 
-exports.createStudent = async (req, res) => {
-    try {
-        const newStudent = await Student.create(req.body);
-        res.status(201).json({
-            status: 'success',
-            data: {student: newStudent},
-        });
-    } catch (err) {
-        res.status(400).json({
-            status: 'fail',
-            message: err,
-        });
-    }
-};
+exports.createStudent = catchAsync(async (req, res, next) => {
 
-exports.updateTeacher = async (req, res) => {
-    try {
-        const student = await Student.findByIdAndUpdate(req.params.id, req.body, {
-            new: true, // New document will be sent back
-            runValidators: true,
-        });
-        res.status(200).json({
-            status: 'succes',
-            data: {
-                student,
-            },
-        });
-    } catch (err) {
-        res.status(400).json({
-            status: 'fail',
-            message: err.message,
-        });
-    }
-};
+    const newStudent = await Student.create(req.body);
+    res.status(201).json({
+        status: 'success',
+        data: {student: newStudent},
+    });
 
-exports.deleteStudent = async (req, res) => {
-    try {
-        await Student.findByIdAndDelete(req.params.id);
-        res.status(204).json({
-            status: 'succes',
-            data: null,
-        });
-    } catch (err) {
-        res.status(400).json({
-            status: 'fail',
-            message: err.message,
-        });
-    }
-};
+});
 
-exports.getStudentStats = async (req, res) => {
-    try {
+exports.updateStudent = catchAsync(async (req, res, next) => {
 
-        const subject = req.query.subject;
+    const student = await Student.findByIdAndUpdate(req.params.id, req.body, {
+        new: true, // New document will be sent back
+        runValidators: true,
+    });
+    res.status(200).json({
+        status: 'succes',
+        data: {
+            student,
+        },
+    });
+});
 
-        const stats = await Student.aggregate(
-            [
-                {
-                    $unwind: "$subjects"
-                },
-                {
-                    $match:
-                        {
-                            "subjects.subject": {$eq: subject}
+exports.deleteStudent = catchAsync(async (req, res, next) => {
+
+    await Student.findByIdAndDelete(req.params.id);
+    res.status(204).json({
+        status: 'succes',
+        data: null,
+    });
+});
+
+exports.getStudentStats = catchAsync(async (req, res, next) => {
+
+    const year = req.params.year * 1;
+    console.log(year)
+    const stats = await Student.aggregate(
+        [
+            {
+                $match:
+                    {
+                        "education.startDate": {
+                            $gte: new Date(`${year}-01-01`),
+                            $lte: new Date(`${year}-12-31`),
                         }
-                },
-                {
-                    $group: {
-                        _id: subject,
-                        numOfSubject: { $sum: 1 },
-                        students: { $push: '$student'}
                     }
-                },
-                {
-                    $addFields: { subject: '$_id'}
-                },
-                {
-                    $project: { _id: 0}
+            },
+            {
+                $group: {
+                    _id: '$education.name',
+                    numOfStudents: {$sum: 1},
+                    students: {$push: '$student.name'},
+                    education: {$first: '$education.name'}
                 }
-            ])
+            },
+            {
+                $project: {_id: 0},
+            }
+        ])
 
-        // const limitFields = [];
-        //
-        // for (const stat of stats) {
-        //     limitFields.push({student: stat.student, city: stat.address.city, subject: stat.subjects.subject})
-        // }
 
-        res.status(200).json({
-            status: 'succes',
-            data: stats
-            // data: {result: limitFields.length, data: limitFields}
-        });
-    } catch (err) {
-        res.status(400).json({
-            status: 'fail',
-            message: err.message,
-        });
-    }
+    res.status(200).json({
+        status: 'succes',
+        data: stats
+        // data: {result: limitFields.length, data: limitFields}
+    });
+});
 
-}
+// exports.getStudentStats = catchAsync(async (req, res) => {
+//
+//     const subject = req.query.subject;
+//
+//     const stats = await Student.aggregate(
+//         [
+//             {
+//                 $unwind: "$subjects"
+//             },
+//             {
+//                 $match:
+//                     {
+//                         "subjects.subject": {$eq: subject}
+//                     }
+//             },
+//             {
+//                 $group: {
+//                     _id: subject,
+//                     numOfSubject: {$sum: 1},
+//                     students: {$push: '$student'}
+//                 }
+//             },
+//             {
+//                 $addFields: {subject: '$_id'}
+//             },
+//             {
+//                 $project: {_id: 0}
+//             }
+//         ])
+//
+//
+//     res.status(200).json({
+//         status: 'succes',
+//         data: stats
+//         // data: {result: limitFields.length, data: limitFields}
+//     });
+// });
 
 
 

@@ -1,4 +1,4 @@
-const studentRouteDoc = require("../routes/user.swagger");
+const studentRouteDoc = require("./student.swagger");
 
 const swaggerDocumentation = {
     openapi: "3.0.0",

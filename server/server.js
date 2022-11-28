@@ -5,9 +5,14 @@ dotenv.config({ path: './config.env' });
 const app = require('./app');
 
 // DOCKER
-const DB = process.env.DATABASE_DEV
-    .replace("<USER>", process.env.DATABASE_USERNAME)
-    .replace("<PASSWORD>", process.env.DATABASE_PASSWORD)
+// const DB = process.env.DATABASE_DEV
+//     .replace("<USER>", process.env.DATABASE_USERNAME)
+//     .replace("<PASSWORD>", process.env.DATABASE_PASSWORD)
+// MongoDB Atlas
+const DB = process.env.DATABASE_DEV.replace(
+    '<PASSWORD>',
+    process.env.DATABASE_PASSWORD,
+);
 
 mongoose.connect(DB, {
   useNewUrlParser: true,
