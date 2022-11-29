@@ -12,9 +12,9 @@ const swaggerJsDoc = require('./documentation/swagger');
 const app = express();
 
 // 1) Middleware
-if (process.env.NODE_ENV === 'development') {
+//if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev')); //https://expressjs.com/en/resources/middleware/morgan.html
-}
+//}
 
 app.use(express.json()); // For getting the request body
 app.use(express.static(`${__dirname}/public`)); // To get static files like images, html... localhost:3000/img/imageName.png
