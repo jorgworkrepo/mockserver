@@ -1,6 +1,4 @@
-const {code200, code404, code500, code201, code400} = require("./statusCode.swagger");
-
-const studentSchema = {
+module.exports = {
     type: "object",
     required: [
         "student",
@@ -25,10 +23,10 @@ const studentSchema = {
                     type: "string",
                     format: "date",
                     description: "date of birth",
-                    example: "2021-01-30"
                 },
                 email: {
-                    type: "string"
+                    type: "string",
+                    format: "email"
                 },
                 mobil: {
                     type: "number"
@@ -51,6 +49,20 @@ const studentSchema = {
                         }
                     }
                 }
+            },
+            example: {
+                student: {
+                    name: "Hans Jørgensen",
+                    birthday: "2000-4-12",
+                    email: "hans@mail.com",
+                    mobil: 654321,
+                    gender: "male",
+                    address: {
+                        street: "Kongevejen 6",
+                        city: "Copenhagen",
+                        zipCode: "1166"
+                    }
+                },
             }
         },
         education: {
@@ -63,60 +75,28 @@ const studentSchema = {
             properties: {
                 name: {
                     type: "string",
-                    example: "datamatiker",
                     enum: ['datamatiker', 'bachelor', 'multimedia', 'webdesign']
                 },
                 startDate: {
                     type: "string",
                     format: "date",
-                    example: "2022-08-01",
                 },
                 endDate: {
                     type: "string",
                     format: "date",
-                    example: "2024-01-31",
                 },
             },
-        }
-    },
-}
-
-const listOfStudents = {
-    tags: ["student"],
-    summary: "A list of all students from db",
-    operationId: "listOfStudents",
-    responses: {
-        200: code200,
-        404: code404,
-        500: code500
-    }
-}
-
-const createStudent = {
-    tags: ["student"],
-    summary: "Create a new student",
-    operationId: "addStudent",
-    responses: {
-        201: code201,
-        400: code400,
-        404: code404,
-        500: code500
-    },
-    requestBody: {
-        content: {
-            "application/json": {
-                schema: {...studentSchema}
+            example: {
+                education: {
+                    name: "multimedia",
+                    startDate: "2022-08-01",
+                    endDate: "2024-06-31"
+                }
             }
         }
     },
 }
 
-
-const studentRouteDoc = {
-    "/api/v1/students": {
-        get: listOfStudents,
-        post: createStudent
-    }
-}
-
-module.exports = studentRouteDoc;
+// module.exports = {
+//     studentSchema
+// }

@@ -1,17 +1,50 @@
-const {studentObj} = require("./responsObject");
-
-const code200 = {
-    description: "success",
+const code200 = (type, obj) => {
+    return {
+        description: "success",
         content: {
-    "application/json": {
-        schema: {
-            type: "array",
-                example: [studentObj]
+            "application/json": {
+                schema: {
+                    type: "object",
+                    properties: {
+                        status: {
+                            type: "string",
+                            example: "success"
+                        },
+                        data: {
+                            type: type,
+                            example: obj,
+                        }
+                    }
+                }
+            }
         }
     }
 }
+
+const code201 = (obj) => {
+    return {
+        description: "success",
+        content: {
+            "application/json": {
+                schema: {
+                    type: "object",
+                    properties: {
+                        status: {
+                            type: "string",
+                            example: "success"
+                        },
+                        data: {
+                            type: "object",
+                            example: obj
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
-const code201 = {
+
+const code204 = {
     description: "success",
     content: {
         "application/json": {
@@ -20,11 +53,11 @@ const code201 = {
                 properties: {
                     status: {
                         type: "string",
-                        description: "success"
+                        example: "success"
                     },
                     data: {
-                        type: "object",
-                        description: "student object"
+                        nullable: true,
+                        example: "null"
                     }
                 }
             }
@@ -99,6 +132,7 @@ const code500 = {
 module.exports = {
     code200,
     code201,
+    code204,
     code400,
     code404,
     code500,

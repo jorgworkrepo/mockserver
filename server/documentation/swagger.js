@@ -1,4 +1,5 @@
-const studentRouteDoc = require("./student.swagger");
+const studentRouteDoc = require("../routes/student/studentRouteDoc");
+const student = require( "../routes/student/studentSchemaDoc");
 
 const swaggerDocumentation = {
     openapi: "3.0.0",
@@ -11,12 +12,13 @@ const swaggerDocumentation = {
         {
             url: "http://localhost:3000",
             description: "local server"
-        },
-        {
-            url: "http://production:3000",
-            description: "production server"
         }
     ],
+    components:{
+      schemas: {
+          student
+      },
+    },
     tags: [
         {
             name: "student",
