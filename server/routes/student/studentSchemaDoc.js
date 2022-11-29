@@ -51,19 +51,17 @@ module.exports = {
                 }
             },
             example: {
-                student: {
-                    name: "Hans Jørgensen",
-                    birthday: "2000-4-12",
-                    email: "hans@mail.com",
-                    mobil: 654321,
-                    gender: "male",
-                    address: {
-                        street: "Kongevejen 6",
-                        city: "Copenhagen",
-                        zipCode: "1166"
-                    }
-                },
-            }
+                name: "Hans Jørgensen",
+                birthday: "2000-4-12",
+                email: "hans@mail.com",
+                mobil: 654321,
+                gender: "male",
+                address: {
+                    street: "Kongevejen 6",
+                    city: "Copenhagen",
+                    zipCode: "1166"
+                }
+            },
         },
         education: {
             type: "object",
@@ -87,16 +85,10 @@ module.exports = {
                 },
             },
             example: {
-                education: {
-                    name: "multimedia",
-                    startDate: "2022-08-01",
-                    endDate: "2024-06-31"
-                }
+                name: "multimedia",
+                startDate: "2022-08-01",
+                endDate: "2024-06-31"
             }
         }
     },
 }
-
-// module.exports = {
-//     studentSchema
-// }

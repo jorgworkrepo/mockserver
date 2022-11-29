@@ -1,5 +1,5 @@
-const {code200, code201, code204, code404, code500, code400} = require("./statusCodes");
-const studentSchema = require( "../routes/studentSchema");
+const {code200, code201, code204, code404, code500, code400} = require("../../documentation/statusCodes");
+const studentSchema = require("./studentSchemaDoc");
 
 const studentObj = {
     "student": {
@@ -23,6 +23,35 @@ const studentObj = {
     "id": "6383267efefdb17380fe195b"
 }
 
+const studentStats =
+    [
+        {
+            "numOfStudents": 2,
+            "students": [
+                "Jesenia Salisbury",
+                "Dick Robledo"
+            ],
+            "education": "datamatiker"
+        },
+        {
+            "numOfStudents": 2,
+            "students": [
+                "Alyssa Humes",
+                "Wendi Macklin"
+            ],
+            "education": "multimedia"
+        },
+        {
+            "numOfStudents": 2,
+            "students": [
+                "Garret Irizarry",
+                "Hobert Putnam"
+            ],
+            "education": "webdesign"
+        },
+    ]
+
+
 const listOfStudents = {
     tags: ["student"],
     summary: "Returns a list of all students",
@@ -41,7 +70,7 @@ const createStudent = {
     requestBody: {
         content: {
             "application/json": {
-                schema: {...studentSchema}
+                schema: studentSchema
             }
         }
     },
@@ -52,7 +81,7 @@ const createStudent = {
     }
 }
 
-const getUserByQueryId = {
+const getUserById = {
     tags: ["student"],
     summary: "Get student by id",
     operationId: "findById",
@@ -122,6 +151,25 @@ const updateStudentById = {
     },
 }
 
+const getStudentStats = {
+    tags: ["student"],
+    summary: "Get student statistics",
+    operationId: "aggregate",
+    parameters: [{
+        in: "path",
+        name: "year",
+        required: true,
+        description: "year of a specific semester",
+        type: "string",
+        example: "2021"
+    }],
+    responses: {
+        200: code200("object", studentStats),
+        404: code404,
+        500: code500
+    },
+}
+
 
 const studentRouteDoc = {
     "/api/v1/students": {
@@ -129,9 +177,12 @@ const studentRouteDoc = {
         post: createStudent,
     },
     "/api/v1/students/{id}": {
-        get: getUserByQueryId,
+        get: getUserById,
         delete: deleteStudentById,
         patch: updateStudentById,
+    },
+    "/api/v1/students/students-stats/{year}": {
+        get: getStudentStats
     }
 }
 

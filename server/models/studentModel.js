@@ -89,7 +89,6 @@ const studentSchema = new mongoose.Schema(
     });
 
 studentSchema.virtual('studentAge').get(function () {
-    console.log(this.student.birthday)
     if (this.student.birthday) {
         return new Date().getFullYear() - this.student.birthday.getFullYear();
     }

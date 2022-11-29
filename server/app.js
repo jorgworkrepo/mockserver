@@ -1,13 +1,13 @@
 // Only express/api related code
 const express = require('express');
 const morgan = require('morgan');
-const AppError = require('./utils/appError');
+const AppError = require('./exceptions/appError');
 const globalErrorHandler = require('./controllers/errorController');
-const studentRouter = require('./routes/studentRoutes');
+const studentRouter = require('./routes/student/studentRoutes');
 
 
 const swaggerUi = require('swagger-ui-express')
-const swaggerJsDoc = require('./helper/setup.swagger');
+const swaggerJsDoc = require('./documentation/swagger');
 
 const app = express();
 

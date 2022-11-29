@@ -1,7 +1,7 @@
 const Student = require('../models/studentModel');
 const APIFeatures = require("../utils/apiFeatures");
-const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
+const catchAsync = require('../exceptions/catchAsync');
+const AppError = require('../exceptions/appError');
 
 exports.getAllStudents = catchAsync(async (req, res, next) => {
 
@@ -16,9 +16,7 @@ exports.getAllStudents = catchAsync(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         results: students.length,
-        data: {
-            students: students,
-        },
+        data: students
     });
 });
 
@@ -27,7 +25,7 @@ exports.getStudent = catchAsync(async (req, res, next) => {
 
     res.status(200).json({
         status: 'success',
-        data: {student},
+        data: student,
     });
 });
 
@@ -36,7 +34,7 @@ exports.createStudent = catchAsync(async (req, res, next) => {
     const newStudent = await Student.create(req.body);
     res.status(201).json({
         status: 'success',
-        data: {student: newStudent},
+        data: newStudent,
     });
 
 });
@@ -48,10 +46,8 @@ exports.updateStudent = catchAsync(async (req, res, next) => {
         runValidators: true,
     });
     res.status(200).json({
-        status: 'succes',
-        data: {
-            student,
-        },
+        status: 'success',
+        data: student
     });
 });
 
