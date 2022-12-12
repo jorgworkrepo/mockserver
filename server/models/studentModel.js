@@ -25,6 +25,7 @@ const studentSchema = new mongoose.Schema(
                 },
                 required: [true, 'Every student must have a valid email address'],
                 unique: true,
+                lowercase: true
             },
             mobil: {
                 type: Number,
