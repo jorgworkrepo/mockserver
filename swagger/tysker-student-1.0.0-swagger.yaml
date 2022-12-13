@@ -1,9 +1,12 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: json_mockserver_api
+  title: student
   description: Mocks a rest server for retrieving json data for education purposes
 servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/tysker/student/1.0.0
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/tysker/json_mockserver_api/1.0.0
 tags: 
@@ -28,7 +31,13 @@ paths:
               schema:
                 type: array
                 items:
-                 $ref: '#/components/schemas/Student'
+                 allOf: 
+                  - $ref: '#/components/schemas/Student'
+                  - type: object
+                    properties:
+                      studentAge:
+                        type: string
+                        example: 27
         404:
           $ref: '#/components/responses/404ApiResponds'
         500:
@@ -324,22 +333,3 @@ components:
               message:
                 type: string
                 description: This is an error
-      
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    

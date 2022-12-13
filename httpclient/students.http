@@ -10,7 +10,7 @@ Accept: application/json
 ###
 
 # get student by id
-GET localhost:3000/api/v1/students/63845d0cbe895fdf791b1e86
+GET localhost:3000/api/v1/students/6398005116b9c930da6c93fd
 Accept: application/json
 
 ###
@@ -42,7 +42,7 @@ content-type: application/json
 ###
 
 # patch student
-PATCH localhost:3000/api/v1/students/63845d0cbe895fdf791b1e88
+PATCH localhost:3000/api/v1/students/63980082ecc5d99c61d28780
 Content-type: application/json
 
 {
@@ -52,7 +52,7 @@ Content-type: application/json
 ###
 
 # delete student
-DELETE localhost:3000/api/v1/students/63845d0cbe895fdf791b1e8a
+DELETE localhost:3000/api/v1/students/63980082ecc5d99c61d28780
 
 ###
 

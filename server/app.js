@@ -4,8 +4,6 @@ const morgan = require('morgan');
 const AppError = require('./exceptions/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const studentRouter = require('./routes/studentRoutes');
-const userRouter = require('./routes/userRoutes');
-
 
 const app = express();
 
@@ -21,7 +19,6 @@ app.use((req, res, next) => { // Set the request time
 });
 
 app.use('/api/v1/students', studentRouter);
-app.use('/api/v1/users', userRouter);
 
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
